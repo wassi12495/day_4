@@ -13,8 +13,10 @@ require 'pry'
     @customer = customer
     @pin = pin
     @balance = balance
+
     @account_number = @@account_number
     @@account_number += 1
+    # Account has many transactions
     @transactions = []
 
   end
@@ -22,10 +24,13 @@ require 'pry'
 
   def deposit(amount)
     @balance += amount
+    transactions << Transaction.new(self, amount)
+
   end
 
   def withdraw(amount)
     if amount < @balance
+      transactions << Transaction.new(self, -1 * amount)
       @balance -= amount
     else
       return "Not enough cash!"

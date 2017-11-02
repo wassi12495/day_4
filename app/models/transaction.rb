@@ -3,31 +3,35 @@ class Transaction
 
   @@id = 1
   attr_accessor :account, :memo
-  def initialize(account)
+  def initialize(account, amount, memo = Time.now)
+
+    @id = @@id
+    @@id += 1
+
     @account = account
     @customer = @account.customer
     @balance = @account.balance
-    @id = @@id
-    @@id += 1
-    @memo = ""
+    @amount = amount
+    @memo = memo
+
   end
 
-  def withdraw(amount)
-    #@account.balance -= amount
-    @balance -= amount
-    @action = "Withdrew $#{amount}."
-  end
-
-  def deposit(amount)
-
-    @balance += amount
-    @memo = "Deposited $#{amount}."
-  end
+  # def withdraw(amount)
+  #   #@account.balance -= amount
+  #   @balance -= amount
+  #   @action = "Withdrew $#{amount}."
+  # end
+  #
+  # def deposit(amount)
+  #
+  #   @balance += amount
+  #   @memo = "Deposited $#{amount}."
+  # end
 
 
   def update_balance
     @account.balance = @balance
-    @account.transactions << self
+
   end
 
 end
